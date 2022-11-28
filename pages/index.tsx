@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       <div className="flex h-screen flex-col lg:grid lg:grid-cols-10">
 
         {/* Left */}
-        <div className="bg-gradient-to-br from-black to-cyan-600 lg:col-span-4">
+        <div className="bg-gradient-to-t from-cyan-500to-black lg:bg-gradient-to-l from-black to-cyan-500 lg:col-span-4">
           <div className="flex flex-col items-center justify-center py-3 lg:min-h-screen">
 
             <img className="w-44 rounded-xl object-cover lg:w-96 lg:h-96 shadow-sm"
@@ -39,11 +39,11 @@ const Home: NextPage = () => {
 
 
         {/* Right */}
-        <div className='flex flex-1 flex-col px-12 py-8 lg:col-span-6'>
+        <div className='bg-black flex flex-1 flex-col px-12 py-8 lg:col-span-6'>
 
 
           {/* Header */}
-          <header className="flex items-center justify-between">
+          <header className="text-white flex items-center justify-between">
 
             <h1 className='w-52 cursor-pointer text-xl font-extralight sm:w-80'>
               The <span className="font-extrabold text-cyan-400"> Azuki </span> Collection
@@ -64,13 +64,13 @@ const Home: NextPage = () => {
 
           {/* Content */}
           <div className='mt-2 flex flex-1 flex-col items-center space-y-1 lg:space-y-0 lg:justify-center'>
-            <img className='w-96 object-cover pb-10 lg:w-11/12' src="/images/mint.png" alt="" />
+            <img className='w-96 object-cover pb-10 lg:w-9/12' src="/images/mint.png" alt="" />
             <h1 className='text-xl text-cyan-500'>13/20 NFTs minted*</h1>
           </div>
 
 
           {/* Mint Button */}
-          <button className='h-16 bg-cyan-600 text-white w-full rounded-full mt-8 font-bold'>Mint NFT (0.01 ETH)</button>
+          <button className='h-16 mb-4 bg-cyan-500 text-white w-full rounded-full mt-8 font-bold'>Mint NFT (0.01 ETH)</button>
 
         </div>
 
