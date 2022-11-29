@@ -49,7 +49,7 @@ function PURI({ collection }: Props) {
           <header className="text-white flex items-center justify-between">
 
             <h1 className='w-52 cursor-pointer text-xl font-extralight sm:w-80'>
-              <Link href="/" target="_blank">
+              <Link href="/" >
                 The <span className="font-extrabold text-cyan-400"> PURI </span> NFT Marketplace
               </Link>
             </h1>
