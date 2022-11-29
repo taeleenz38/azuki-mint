@@ -41,7 +41,7 @@ function AzukiMint() {
           <header className="text-white flex items-center justify-between">
 
             <h1 className='w-52 cursor-pointer text-xl font-extralight sm:w-80'>
-              The <span className="font-extrabold text-cyan-400"> Azuki </span> Collection
+              The <span className="font-extrabold text-cyan-400"> PURI </span> NFT Marketplace
             </h1>
 
             <button onClick={() => (address ? disconnect() : connectwithMetamask())} className='rounded-full bg-cyan-400 text-white px-4 py-2 text-xs font-bold lg:py-2 lg:px-4 lg:text-base'>
