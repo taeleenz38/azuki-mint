@@ -35,7 +35,9 @@ function PURI({ collection }: Props) {
       const claimConditions = await nftDrop.claimConditions.getAll()
       setPriceInEth(claimConditions?.[0].currencyMetadata.displayValue)
     }
-  })
+
+    fetchPrice();
+  }, [nftDrop])
 
 
   useEffect(() => {
