@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import { sanityClient, urlFor } from '../../sanity'
-import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import { useAddress, useDisconnect, useMetamask, useContract, useNFTDrop } from "@thirdweb-dev/react";
 import { Collection } from '../../typings'
+import { BigNumber } from 'ethers'
 import Link from 'next/link';
 
 
@@ -14,11 +15,69 @@ interface Props {
 
 function PURI({ collection }: Props) {
 
+  const [claimedSupply, setClaimedSupply] = useState<number>(0)
+  const [totalSupply, setTotalSupply] = useState<BigNumber>()
+  const [priceInEth, setPriceInEth] = useState<string>()
+  const [loading, setLoading] = useState<boolean>(true)
+  const nftDrop = useContract(collection.address, "nft-drop").contract;
+
+
   // Auth
   const connectwithMetamask = useMetamask();
   const address = useAddress();
   const disconnect = useDisconnect();
   //
+
+  useEffect(() => {
+    if (!nftDrop) return
+
+    const fetchPrice = async () => {
+      const claimConditions = await nftDrop.claimConditions.getAll()
+      setPriceInEth(claimConditions?.[0].currencyMetadata.displayValue)
+    }
+  })
+
+
+  useEffect(() => {
+    if (!nftDrop) return;
+
+    const fetchNFTDropData = async () => {
+      const claimed = await nftDrop.getAllClaimed();
+      const total = await nftDrop.totalSupply();
+
+      setClaimedSupply(claimed.length);
+      setTotalSupply(total);
+
+      setLoading(false);
+    }
+
+    fetchNFTDropData();
+  }, [nftDrop])
+
+
+  const mintNft = () => {
+    if (!nftDrop || !address) return;
+
+    const quantity = 1; // how many unique NFTs you want to claim
+
+    setLoading(true);
+
+    nftDrop.claimTo(address, quantity).then(async (tx) => {
+      const receipt = tx[0].receipt
+      const claimedTokenId = tx[0].id
+      const claimedNFT = await tx[0].data()
+
+      console.log(receipt)
+      console.log(claimedTokenId)
+      console.log(claimedNFT)
+    }).catch(err => {
+      console.log(err)
+    }).finally(() => {
+      setLoading(false);
+    })
+  }
+
+
 
   return (
     <div>
@@ -70,16 +129,34 @@ function PURI({ collection }: Props) {
           {/* Content */}
           <div className='mt-2 flex flex-1 flex-col items-center space-y-1 lg:space-y-0 lg:justify-center'>
             <img className='w-96 object-cover pb-10 lg:w-9/12' src={urlFor(collection.previewImage).url()} alt="" />
-            <h1 className='text-xl text-cyan-500'>13/20 NFTs minted*</h1>
+
+            {loading ? (
+              <h1 className='text-xl text-cyan-500 animate-pulse'>Loading Supply Count...</h1>
+            ) : (
+              <h1 className='text-xl text-cyan-500'>{claimedSupply} / {totalSupply?.toString()} NFTs minted*</h1>
+            )}
           </div>
 
 
+
           {/* Mint Button */}
-          <button className='h-16 mb-4 bg-cyan-500 text-white w-full rounded-full mt-8 font-bold'>Mint NFT (0.01 ETH)</button>
+          <button onClick={mintNft} disabled={loading || claimedSupply === totalSupply?.toNumber() || !address} className='h-16 mb-4 bg-cyan-500 text-white w-full rounded-full mt-8 font-bold disabled:bg-gray-400'>
+
+            {loading ? (
+              <>Loading</>
+            ) : claimedSupply === totalSupply?.toNumber() ? (
+              <>SOLD OUT</>
+            ) : !address ? (
+              <>Sign in to Mint</>
+            ) : (
+              <span className='font-bold'>Mint NFT ({priceInEth} ETH)</span>
+            )}
+
+          </button>
 
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
