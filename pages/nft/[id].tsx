@@ -109,13 +109,13 @@ function PURI({ collection }: Props) {
           {/* Header */}
           <header className="text-white flex items-center justify-between">
 
-            <h1 className='w-52 cursor-pointer text-xl font-extralight sm:w-80'>
+            <h1 className='w-52 cursor-pointer text-xl font-bold sm:w-80 transition-all duration-200 hover:text-cyan-400'>
               <Link href="/" >
                 The <span className="font-extrabold text-cyan-400"> PURI </span> NFT Marketplace
               </Link>
             </h1>
 
-            <button onClick={() => (address ? disconnect() : connectwithMetamask())} className='rounded-full bg-cyan-400 text-white px-4 py-2 text-xs font-bold lg:py-2 lg:px-4 lg:text-base'>
+            <button onClick={() => (address ? disconnect() : connectwithMetamask())} className='rounded-xl bg-black border-2 border-cyan-400 text-white px-3 py-2 text-xs font-bold lg:px-4 lg:py-1 lg:text-base transition-all duration-300 hover:bg-cyan-400'>
               {address ? 'Disconnect' : 'Connect'}
             </button>
 
@@ -130,19 +130,19 @@ function PURI({ collection }: Props) {
 
           {/* Content */}
           <div className='mt-2 flex flex-1 flex-col items-center space-y-1 lg:space-y-0 lg:justify-center'>
-            <img className='w-96 object-cover pb-10 lg:w-9/12' src={urlFor(collection.previewImage).url()} alt="" />
+            <img className='w-96 object-cover mt-5 pb-10 lg:w-9/12 lg:mt-0' src={urlFor(collection.previewImage).url()} alt="" />
 
             {loading ? (
-              <h1 className='text-xl text-cyan-500 animate-pulse'>Loading Supply Count...</h1>
+              <h1 className='text-md text-cyan-500 animate-pulse lg:text-lg'>Loading Supply Count...</h1>
             ) : (
-              <h1 className='text-xl text-cyan-500'>{claimedSupply} / {totalSupply?.toString()} NFTs minted*</h1>
+              <h1 className='text-md text-cyan-500 lg:text-lg'>{claimedSupply} / {totalSupply?.toString()} NFTs minted*</h1>
             )}
           </div>
 
 
 
           {/* Mint Button */}
-          <button onClick={mintNft} disabled={loading || claimedSupply === totalSupply?.toNumber() || !address} className='h-16 mb-4 bg-cyan-500 text-white w-full rounded-full mt-8 font-bold disabled:bg-gray-400'>
+          <button onClick={mintNft} disabled={loading || claimedSupply === totalSupply?.toNumber() || !address} className='h-16 mb-4 mx-auto bg-cyan-500 text-white w-10/12 rounded-xl mt-8 font-bold disabled:bg-gray-400'>
 
             {loading ? (
               <>Loading</>
