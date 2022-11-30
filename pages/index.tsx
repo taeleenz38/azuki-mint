@@ -15,14 +15,14 @@ interface Props {
 const Home = ({ collections }: Props) => {
 
   return (
-    <div className="bg-black min-h-screen font-['Roboto'] text-white">
+    <div className="bg-black min-h-screen font-['Montserrat'] text-white">
       <div className="mx-auto flex max-w-7xl flex-col py-8 px-8 lg:py-20 lg:px-10 2xl:px-0">
         <Head>
           <title>Puri NFT Marketplace</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <h1 className='w-60 cursor-pointer text-2xl font-bold sm:w-80  transition-all duration-200 hover:text-cyan-400'>
+        <h1 className='w-60 cursor-pointer text-2xl font-bold sm:w-96  transition-all duration-200 hover:text-cyan-400'>
           The <span className="font-extrabold text-cyan-400"> PURI </span> NFT Marketplace
         </h1>
 
@@ -35,8 +35,8 @@ const Home = ({ collections }: Props) => {
                 <div className='flex flex-col text-black items-center cursor-pointer transition-all duration-200 hover:scale-105'>
                   <img className='h-96 w-12/12 rounded-xl object-cover shadow-xl mt-4 lg:w-11/12' src={urlFor(collection.mainImage).url()} alt="" />
                   <div>
-                    <h2 className='text-3xl text-center mt-2'>{collection.nftCollectionName}</h2>
-                    <p className='mb-2 mx-auto text-sm text-gray-400 text-center w-10/12 lg:mt-2 lg:mb-0'>{collection.description}</p>
+                    <h2 className='text-3xl font-medium text-center mt-2'>{collection.nftCollectionName}</h2>
+                    <p className='mb-2 mx-auto text-xs text-gray-400 text-center w-10/12 lg:mt-2 lg:mb-0'>{collection.description}</p>
                   </div>
                 </div>
               </Link>
@@ -54,27 +54,27 @@ export default Home
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const query = `*[_type == "collection"]{
-            _id,
-            title,
-            address,
-            description,
-            nftCollectionName,
-            mainImage {
-            asset
-          },
-          previewImage {
-            asset
-          },
-          slug {
-            current
-          },
+        _id,
+        title,
+        address,
+        description,
+        nftCollectionName,
+        mainImage {
+        asset
+      },
+      previewImage {
+        asset
+      },
+      slug {
+        current
+      },
   creator-> {
-            _id,
-            name,
-            address,
-            slug {
-            current
-          },
+        _id,
+        name,
+        address,
+        slug {
+        current
+      },
   },
   }`
 

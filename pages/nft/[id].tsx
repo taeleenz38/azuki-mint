@@ -83,7 +83,7 @@ function PURI({ collection }: Props) {
 
   return (
     <div>
-      <div className="flex h-screen font-['Roboto'] flex-col lg:grid lg:grid-cols-10">
+      <div className="flex h-screen font-['Montserrat'] flex-col lg:grid lg:grid-cols-10">
 
         {/* Left */}
         <div className="bg-gradient-to-t from-cyan-500to-black lg:bg-gradient-to-l from-black to-cyan-500 lg:col-span-4">
@@ -95,7 +95,7 @@ function PURI({ collection }: Props) {
 
             <div className="space-y-2 p-5 text-center">
               <h1 className="text-4xl font-bold text-white">{collection.nftCollectionName}</h1>
-              <h2 className="text-xl text-gray-300 px-3 lg:px-32">{collection.description}</h2>
+              <h2 className="text-lg text-gray-300 px-3 lg:px-32">{collection.description}</h2>
             </div>
 
           </div>
